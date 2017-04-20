@@ -1,5 +1,11 @@
 import React from 'react'
-import { ReactDOM } from 'react-dom'
+import ReactDOM from 'react-dom'
 import Title from './Title'
 
-ReactDOM.render(Title, document.getElementById('app'))
+class App extends React.Component {
+  render () {
+    return Title
+  }
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById('app'))
