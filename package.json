@@ -1,0 +1,11 @@
+{
+  "name": "weather-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/pjrashidi/weather-react.git",
+  "author": "<pjrashidi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.5.4"
+  }
+}
