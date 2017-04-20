@@ -85,10 +85,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Title__ = __webpack_require__(0);
 
 
-ReactDOM.render(
-  __WEBPACK_IMPORTED_MODULE_0__Title__["a" /* default */],
-  document.getElementById('app')
-)
+ReactDOM.render(__WEBPACK_IMPORTED_MODULE_0__Title__["a" /* default */],document.getElementById('app'))
 
 
 /***/ })

@@ -5,6 +5,9 @@
   "repository": "https://github.com/pjrashidi/weather-react.git",
   "author": "<pjrashidi@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "watch" : "webpack --watch"
+  },
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
