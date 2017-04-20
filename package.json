@@ -6,11 +6,22 @@
   "author": "<pjrashidi@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "watch" : "webpack --watch"
+    "watch": "webpack --watch",
+    "lint": "./node_modules/.bin/eslint ./js/**/*.js"
   },
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-react": "^4.3.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "webpack": "^2.4.1"
   }
 }
