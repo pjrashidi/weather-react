@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Title = React.creteElement('h1', null, 'Weather React 🌦')
+const Title = <h1>Weather React 🌦</h1>
 
 export default Title
