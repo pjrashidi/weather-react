@@ -1,5 +1,7 @@
 import React from 'react'
 
-const Title = <h1>Weather React 🌦</h1>
+const Title = () => {
+  return <h1>Weather React 🌦</h1>
+}
 
 export default Title
