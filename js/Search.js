@@ -4,12 +4,28 @@ import Forecast from './Forecast'
 class Search extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      coordinates: '24.3601,-71.0589'
-    }
+    this.state = { coordinates: '' }
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange (event) {
+    this.setState({coordinates: event.target.value})
   }
   render () {
-    return <Forecast coordinates={this.state.coordinates} />
+    let forecast
+    if (this.state.coordinates) {
+      forecast = <Forecast coordinates={this.state.coordinates} />
+    } else {
+      forecast = 'Please Enter Coordinates'
+    }
+    return (
+      <div>
+        <input
+          value={this.state.coordinates}
+          onChange={this.handleChange}
+        />
+        {forecast}
+      </div>
+    )
   }
 }
 
