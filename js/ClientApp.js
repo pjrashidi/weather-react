@@ -7,7 +7,7 @@ function App (props) {
   return (
     <div>
       <Title />
-      <Forecast />
+      <Forecast coordinates='24.3601,-71.0589' />
     </div>
   )
 }

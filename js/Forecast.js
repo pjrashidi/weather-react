@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import Currently from './Currently'
 
@@ -8,7 +9,7 @@ class Forecast extends React.Component {
     this.state = {forecast: null}
   }
   componentDidMount () {
-    axios.get('http://localhost:3000/forecast')
+    axios.get(`http://localhost:3000/forecast/${this.props.coordinates}`)
       .then((response) => {
         this.setState({forecast: response.data})
       })
@@ -31,6 +32,10 @@ class Forecast extends React.Component {
       <div>{forecast}</div>
     )
   }
+}
+
+Forecast.propTypes = {
+  coordinates: PropTypes.string
 }
 
 export default Forecast
