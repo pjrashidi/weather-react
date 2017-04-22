@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Title from './Title'
-import Forecast from './Forecast'
+import Search from './Search'
 
 function App (props) {
   return (
     <div>
       <Title />
-      <Forecast coordinates='24.3601,-71.0589' />
+      <Search />
     </div>
   )
 }
