@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Currently from './Currently'
 
 class Forecast extends React.Component {
   constructor (props) {
@@ -18,7 +19,11 @@ class Forecast extends React.Component {
   render () {
     let forecast
     if (this.state.forecast) {
-      forecast = <pre>{JSON.stringify(this.state.forecast, null, 4)}</pre>
+      forecast =
+        <div>
+          <Currently {...this.state.forecast.currently} />
+          <pre>{JSON.stringify(this.state.forecast, null, 4)}</pre>
+        </div>
     } else {
       forecast = 'Loading Forecast...'
     }
