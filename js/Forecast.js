@@ -8,7 +8,7 @@ class Forecast extends React.Component {
     super(props)
     this.state = {forecast: null}
   }
-  componentDidMount () {
+  componentDidUpdate () {
     axios.get(`http://localhost:3000/forecast/${this.props.coordinates}`)
       .then((response) => {
         this.setState({forecast: response.data})
