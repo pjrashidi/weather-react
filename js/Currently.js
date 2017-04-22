@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Currently = (props) => {
   const { temperature, apparentTemperature, humidity } = props
@@ -12,8 +13,8 @@ const Currently = (props) => {
 }
 
 Currently.propTypes = {
-  temperature: React.PropTypes.number,
-  apparentTemperature: React.PropTypes.number,
-  humidity: React.PropTypes.number
+  temperature: PropTypes.number,
+  apparentTemperature: PropTypes.number,
+  humidity: PropTypes.number
 }
 export default Currently
