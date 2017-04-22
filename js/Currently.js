@@ -11,4 +11,9 @@ const Currently = (props) => {
   )
 }
 
+Currently.propTypes = {
+  temperature: React.PropTypes.number,
+  apparentTemperature: React.PropTypes.number,
+  humidity: React.PropTypes.number
+}
 export default Currently
