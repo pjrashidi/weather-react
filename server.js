@@ -12,8 +12,8 @@ server.use(function(req, res, next) {
   next();
 });
 
-server.get('/forecast', (req, res) => {
-  axios.get(`https://api.darksky.net/forecast/${key}/42.3601,-71.0589`)
+server.get('/forecast/:coord', (req, res) => {
+  axios.get(`https://api.darksky.net/forecast/${key}/${req.params.coord}`)
     .then((response) => {
       res.send(JSON.stringify(response.data, null, 4))
     })
