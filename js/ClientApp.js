@@ -10,6 +10,10 @@ class ClientApp extends React.Component {
       coordinates: '',
       forecast: {}
     }
+    this.changeCoordinates = this.changeCoordinates.bind(this)
+  }
+  changeCoordinates (newCoordinates) {
+    this.setState({coordinates: newCoordinates})
   }
   render () {
     return (
