@@ -19,7 +19,10 @@ class ClientApp extends React.Component {
     return (
       <div>
         <Title />
-        <Search />
+        <Search
+          changeCoordinates={this.changeCoordinates}
+          coordinates={this.state.coordinates}
+        />
       </div>
     )
   }
