@@ -3,7 +3,14 @@ import ReactDOM from 'react-dom'
 import Title from './Title'
 import Search from './Search'
 
-class App extends React.Component {
+class ClientApp extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      coordinates: '',
+      forecast: {}
+    }
+  }
   render () {
     return (
       <div>
@@ -14,4 +21,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<ClientApp />, document.getElementById('app'))
