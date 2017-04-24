@@ -4,7 +4,7 @@ const express = require('express')
 const server = express()
 const axios = require('axios')
 const PORT = 3000
-const key = process.env.API_KEY
+const darkSkyKey = process.env.DARK_SKY_KEY
 
 server.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -13,7 +13,7 @@ server.use(function(req, res, next) {
 });
 
 server.get('/forecast/:coord', (req, res) => {
-  axios.get(`https://api.darksky.net/forecast/${key}/${req.params.coord}`)
+  axios.get(`https://api.darksky.net/forecast/${darkSkyKey}/${req.params.coord}`)
     .then((response) => {
       res.send(JSON.stringify(response.data, null, 4))
     })
