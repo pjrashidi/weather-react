@@ -5,10 +5,13 @@ const googleMapsAPIKey = process.env.GOOGLE_MAPS_KEY
 
 
 module.exports = {
-  entry: './js/ClientApp.js',
+  entry: {
+    bundle: './js/ClientApp.js',
+    googleMaps: './js/googleMaps.js'
+  },
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   devServer: {
     publicPath: '/public/'
@@ -20,6 +23,7 @@ module.exports = {
         enforce: "pre",
         test: /\.js$/,
         include: path.resolve(__dirname, 'js'),
+        exclude: path.resolve('googleMaps.js'),
         loader: 'eslint-loader'
       },
       {
@@ -32,7 +36,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       googleMapsAPIKey: googleMapsAPIKey,
-      title: 'Custom template',
+      title: 'Weather React',
       template: 'my-index.ejs'
     })
   ]
