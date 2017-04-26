@@ -7,11 +7,15 @@ class Test extends React.Component {
       stateTest: true
     }
     this.flipStateTest = this.flipStateTest.bind(this)
+    this.logState = this.logState.bind(this)
   }
   flipStateTest (e) {
     e.preventDefault()
     this.setState({stateTest: false})
-    console.log(this.state.stateTest)
+    this.logState()
+  }
+  logState () {
+    console.log(this.state)
   }
   render () {
     return (
