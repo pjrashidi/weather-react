@@ -1,4 +1,4 @@
-/* globals google */
+/* globals google alert */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
@@ -51,11 +51,9 @@ class ClientApp extends React.Component {
         <Title />
         <Search
           changeCoordinates={this.changeCoordinates}
+          getData={this.getData}
           coordinates={this.state.coordinates}
         />
-        <form onSubmit={this.getData}>
-          <input type='submit' />
-        </form>
         <Forecast
           forecast={this.state.forecast}
         />
