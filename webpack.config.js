@@ -5,13 +5,10 @@ const googleMapsAPIKey = process.env.GOOGLE_MAPS_KEY
 
 
 module.exports = {
-  entry: {
-    bundle: './js/ClientApp.js',
-    googleMaps: './js/googleMaps.js'
-  },
+  entry:'./js/ClientApp.js',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: '[name].js'
+    filename: 'bundle.js'
   },
   devServer: {
     publicPath: '/public/'

@@ -20,6 +20,7 @@ class Search extends React.Component {
     return (
       <div>
         <input
+          id='searchInput'
           value={this.props.coordinates}
           onChange={this.handleChange}
         />

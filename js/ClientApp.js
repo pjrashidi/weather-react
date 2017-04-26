@@ -1,3 +1,4 @@
+/* globals google */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
@@ -14,9 +15,22 @@ class ClientApp extends React.Component {
     }
     this.changeCoordinates = this.changeCoordinates.bind(this)
     this.getData = this.getData.bind(this)
+    this.codeAddress = this.codeAddress.bind(this)
+  }
+  codeAddress () {
+    var geocoder = new google.maps.Geocoder()
+    var address = document.getElementById('searchInput').value
+    geocoder.geocode({ 'address': address }, function (results, status) {
+      if (status === 'OK') {
+        console.log(results[0].geometry.location.lat())
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status)
+      }
+    })
   }
   getData (e) {
     e.preventDefault()
+    this.codeAddress()
     console.log('getData')
     console.log(this.state.coordinates)
     axios.get(`http://localhost:3000/forecast/${this.state.coordinates}`)
