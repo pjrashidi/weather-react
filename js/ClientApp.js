@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
-import Test from './Test'
+// import Test from './Test'
 import Title from './Title'
 import Search from './Search'
 import Forecast from './Forecast'
@@ -46,12 +46,12 @@ class ClientApp extends React.Component {
   }
   setSearchTerm (newSearchTerm) {
     this.setState({searchTerm: newSearchTerm})
-    console.log(this.state)
   }
   render () {
+    console.log(this.state)
     return (
       <div>
-        <Test />
+        {/* <Test /> */}
         <Title />
         <Search
           setSearchTerm={this.setSearchTerm}
