@@ -21,7 +21,7 @@ class Forecast extends React.Component {
 }
 
 Forecast.propTypes = {
-  forecast: PropTypes.obj
+  forecast: PropTypes.object
 }
 
 export default Forecast

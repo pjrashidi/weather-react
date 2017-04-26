@@ -8,7 +8,7 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange (event) {
-    console.log(event.target.value);
+    console.log(event.target.value)
     this.props.setSearchTerm(event.target.value)
   }
   handleSubmit (event) {
