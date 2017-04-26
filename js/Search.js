@@ -8,7 +8,8 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange (event) {
-    this.props.changeCoordinates(event.target.value)
+    console.log(event.target.value);
+    this.props.setSearchTerm(event.target.value)
   }
   handleSubmit (event) {
     this.props.getData(event)
@@ -19,7 +20,7 @@ class Search extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <input
             id='searchInput'
-            value={this.props.coordinates}
+            value={this.props.searchTerm}
             onChange={this.handleChange}
           />
           <input type='submit' />
@@ -30,9 +31,12 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-  changeCoordinates: PropTypes.func,
+  setSearchTerm: PropTypes.func,
   getData: PropTypes.func,
-  coordinates: PropTypes.string
+  searchTerm: PropTypes.string
 }
 
 export default Search
+
+// Search.js renders a search field and a submit button
+// it also updates the 'searchTerm' value in state

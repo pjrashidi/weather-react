@@ -10,10 +10,11 @@ class ClientApp extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      searchTerm: '',
       coordinates: '',
       forecast: {}
     }
-    this.changeCoordinates = this.changeCoordinates.bind(this)
+    this.setSearchTerm = this.setSearchTerm.bind(this)
     this.getData = this.getData.bind(this)
     this.codeAddress = this.codeAddress.bind(this)
   }
@@ -42,17 +43,18 @@ class ClientApp extends React.Component {
         console.log(error)
       })
   }
-  changeCoordinates (newCoordinates) {
-    this.setState({coordinates: newCoordinates})
+  setSearchTerm (newSearchTerm) {
+    this.setState({searchTerm: newSearchTerm})
+    console.log(this.state)
   }
   render () {
     return (
       <div>
         <Title />
         <Search
-          changeCoordinates={this.changeCoordinates}
+          setSearchTerm={this.setSearchTerm}
+          searchTerm={this.state.searchTerm}
           getData={this.getData}
-          coordinates={this.state.coordinates}
         />
         <Forecast
           forecast={this.state.forecast}
