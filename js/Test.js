@@ -10,11 +10,8 @@ class Test extends React.Component {
   }
   flipStateTest (e) {
     e.preventDefault()
-    if (this.state.stateTest) {
-      this.setState({stateTest: false})
-    } else {
-      this.setState({stateTest: true})
-    }
+    this.setState({stateTest: false})
+    console.log(this.state.stateTest)
   }
   render () {
     return (
