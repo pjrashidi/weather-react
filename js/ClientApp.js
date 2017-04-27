@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import axios from 'axios'
 // import Test from './Test'
 import Title from './Title'
 import Search from './Search'
 import Forecast from './Forecast'
+import { getForecast } from './getForecast'
 
 class ClientApp extends React.Component {
   constructor (props) {
@@ -16,26 +16,19 @@ class ClientApp extends React.Component {
     }
     this.setSearchTerm = this.setSearchTerm.bind(this)
     this.setCoordinates = this.setCoordinates.bind(this)
-    this.getData = this.getData.bind(this)
-  }
-  getData () {
-    console.log('getData')
-    console.log(this.state.coordinates)
-    axios.get(`http://localhost:3000/forecast/${this.state.coordinates}`)
-      .then((response) => {
-        console.log('success', response.data)
-        this.setState({forecast: response.data})
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    this.setForecast = this.setForecast.bind(this)
   }
   setSearchTerm (newSearchTerm) {
     this.setState({searchTerm: newSearchTerm})
   }
   setCoordinates (newCoordinates) {
-    this.setState({coordinates: newCoordinates})
-    this.getData()
+    this.setState(
+      {coordinates: newCoordinates},
+      () => getForecast(this.state.coordinates, this.setForecast)
+    )
+  }
+  setForecast (newForecast) {
+    this.setState({forecast: newForecast})
   }
   render () {
     console.log(this.state)
