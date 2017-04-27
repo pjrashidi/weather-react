@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 // import Test from './Test'
 import Title from './Title'
 import Search from './Search'
+import Recent from './Recent'
 import Forecast from './Forecast'
 import { getForecast } from './getForecast'
 
@@ -31,7 +32,6 @@ class ClientApp extends React.Component {
     this.setState({forecast: newForecast})
   }
   render () {
-    console.log(this.state)
     return (
       <div>
         {/* <Test /> */}
@@ -41,6 +41,7 @@ class ClientApp extends React.Component {
           setCoordinates={this.setCoordinates}
           searchTerm={this.state.searchTerm}
         />
+        <Recent />
         <Forecast
           forecast={this.state.forecast}
         />
