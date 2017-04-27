@@ -1,4 +1,3 @@
-/* globals google alert */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
@@ -16,19 +15,8 @@ class ClientApp extends React.Component {
       forecast: {}
     }
     this.setSearchTerm = this.setSearchTerm.bind(this)
+    this.setCoordinates = this.setCoordinates.bind(this)
     this.getData = this.getData.bind(this)
-    this.codeAddress = this.codeAddress.bind(this)
-  }
-  codeAddress () {
-    var geocoder = new google.maps.Geocoder()
-    var address = document.getElementById('searchInput').value
-    geocoder.geocode({ 'address': address }, function (results, status) {
-      if (status === 'OK') {
-        console.log(results[0].geometry.location.lat())
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status)
-      }
-    })
   }
   getData (e) {
     e.preventDefault()
@@ -47,6 +35,9 @@ class ClientApp extends React.Component {
   setSearchTerm (newSearchTerm) {
     this.setState({searchTerm: newSearchTerm})
   }
+  setCoordinates (newCoordinates) {
+    this.setState({coordinates: newCoordinates})
+  }
   render () {
     console.log(this.state)
     return (
@@ -55,8 +46,8 @@ class ClientApp extends React.Component {
         <Title />
         <Search
           setSearchTerm={this.setSearchTerm}
+          setCoordinates={this.setCoordinates}
           searchTerm={this.state.searchTerm}
-          getData={this.getData}
         />
         <Forecast
           forecast={this.state.forecast}

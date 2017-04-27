@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { codeAddress } from './geocoder'
 
 class Search extends React.Component {
   constructor (props) {
@@ -8,11 +9,11 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange (event) {
-    console.log(event.target.value)
     this.props.setSearchTerm(event.target.value)
   }
   handleSubmit (event) {
-    this.props.getData(event)
+    event.preventDefault()
+    codeAddress(this.props.searchTerm, this.props.setCoordinates)
   }
   render () {
     return (
@@ -32,7 +33,7 @@ class Search extends React.Component {
 
 Search.propTypes = {
   setSearchTerm: PropTypes.func,
-  getData: PropTypes.func,
+  setCoordinates: PropTypes.func,
   searchTerm: PropTypes.string
 }
 
