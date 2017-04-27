@@ -13,7 +13,7 @@ class Search extends React.Component {
   }
   handleSubmit (event) {
     event.preventDefault()
-    codeAddress(this.props.searchTerm, this.props.setCoordinates)
+    codeAddress(this.props.searchTerm, this.props.setGeocode)
   }
   render () {
     return (
@@ -33,7 +33,7 @@ class Search extends React.Component {
 
 Search.propTypes = {
   setSearchTerm: PropTypes.func,
-  setCoordinates: PropTypes.func,
+  setGeocode: PropTypes.func,
   searchTerm: PropTypes.string
 }
 

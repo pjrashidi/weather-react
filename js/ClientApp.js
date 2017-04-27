@@ -12,7 +12,7 @@ class ClientApp extends React.Component {
     super(props)
     this.state = {
       searchTerm: '',
-      coordinates: '',
+      geocode: '',
       forecast: {},
       recentList: [
         'new york',
@@ -21,17 +21,17 @@ class ClientApp extends React.Component {
       ]
     }
     this.setSearchTerm = this.setSearchTerm.bind(this)
-    this.setCoordinates = this.setCoordinates.bind(this)
+    this.setGeocode = this.setGeocode.bind(this)
     this.setForecast = this.setForecast.bind(this)
     this.setRecentList = this.setRecentList.bind(this)
   }
   setSearchTerm (newSearchTerm) {
     this.setState({searchTerm: newSearchTerm})
   }
-  setCoordinates (newCoordinates) {
+  setGeocode (newGeocode) {
     this.setState(
-      {coordinates: newCoordinates},
-      () => getForecast(this.state.coordinates, this.setForecast)
+      {geocode: newGeocode},
+      () => getForecast(this.state.geocode, this.setForecast)
     )
   }
   setForecast (newForecast) {
@@ -41,6 +41,7 @@ class ClientApp extends React.Component {
     this.setState({recentList: newRecentList})
   }
   render () {
+    console.log(this.state)
     return (
       <div>
         {/* <Test /> */}
@@ -48,7 +49,7 @@ class ClientApp extends React.Component {
         <Search
           searchTerm={this.state.searchTerm}
           setSearchTerm={this.setSearchTerm}
-          setCoordinates={this.setCoordinates}
+          setGeocode={this.setGeocode}
         />
         <RecentList recentSearches={this.state.recentList} />
         <Forecast forecast={this.state.forecast} />

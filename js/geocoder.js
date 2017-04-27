@@ -5,8 +5,8 @@ export function codeAddress (address, callback) {
   geocoder.geocode({ 'address': address }, function (results, status) {
     if (status === 'OK') {
       console.log('Geocoder results:', results)
-      const newCoordinates = `${results[0].geometry.location.lat()},${results[0].geometry.location.lng()}`
-      callback(newCoordinates)
+      const newGeocode = results
+      callback(newGeocode)
     } else {
       alert('Geocode was not successful for the following reason: ' + status)
     }
