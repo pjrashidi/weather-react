@@ -6,6 +6,7 @@ import Search from './Search'
 import RecentList from './RecentList'
 import Forecast from './Forecast'
 import { getForecast } from './getForecast'
+import { updateRecentList } from './updateRecentList'
 
 class ClientApp extends React.Component {
   constructor (props) {
@@ -14,11 +15,7 @@ class ClientApp extends React.Component {
       searchTerm: '',
       geocode: '',
       forecast: {},
-      recentList: [
-        'new york',
-        'phoenix',
-        'denver'
-      ]
+      recentList: []
     }
     this.setSearchTerm = this.setSearchTerm.bind(this)
     this.setGeocode = this.setGeocode.bind(this)
@@ -31,7 +28,10 @@ class ClientApp extends React.Component {
   setGeocode (newGeocode) {
     this.setState(
       {geocode: newGeocode},
-      () => getForecast(this.state.geocode, this.setForecast)
+      () => {
+        getForecast(this.state.geocode, this.setForecast)
+        updateRecentList(this.state.recentList, this.state.geocode, this.setRecentList)
+      }
     )
   }
   setForecast (newForecast) {

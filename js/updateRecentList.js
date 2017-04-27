@@ -1,5 +1,6 @@
-export function updateRecentList (currentRecentList, newSearch, callback) => {
-  const newRecentList = currentRecentList.push(newSearch)
-  if (newRecentList.length > 5) {newRecentList.pop()}
-  callback(newRecentList)
+export function updateRecentList (RecentList, newGeocode, callback) {
+  const newSearch = newGeocode[0].formatted_address
+  RecentList.unshift(newSearch)
+  if (RecentList.length > 5) { RecentList.pop() }
+  callback(RecentList)
 }
