@@ -1,4 +1,5 @@
 import React from 'react'
+import RecentItem from './RecentItem.js'
 import PropTypes from 'prop-types'
 
 class RecentList extends React.Component {
@@ -6,9 +7,9 @@ class RecentList extends React.Component {
   //   super(props)
   // }
   render () {
-    let recentSearches
+    let recentSearchList
     recentSearchList = this.props.recentSearches.map((searchItem) => {
-      return <div>{searchItem}</div>
+      return <RecentItem searchItem={searchItem} />
     })
     return (
       <div>
