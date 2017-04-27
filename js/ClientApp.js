@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 // import Test from './Test'
 import Title from './Title'
 import Search from './Search'
-import Recent from './Recent'
+import RecentList from './RecentList'
 import Forecast from './Forecast'
 import { getForecast } from './getForecast'
 
@@ -13,7 +13,12 @@ class ClientApp extends React.Component {
     this.state = {
       searchTerm: '',
       coordinates: '',
-      forecast: {}
+      forecast: {},
+      recentSearches: [
+        'new york',
+        'phoenix',
+        'denver'
+      ]
     }
     this.setSearchTerm = this.setSearchTerm.bind(this)
     this.setCoordinates = this.setCoordinates.bind(this)
@@ -41,10 +46,8 @@ class ClientApp extends React.Component {
           setCoordinates={this.setCoordinates}
           searchTerm={this.state.searchTerm}
         />
-        <Recent />
-        <Forecast
-          forecast={this.state.forecast}
-        />
+        <RecentList recentSearches={this.state.recentSearches} />
+        <Forecast forecast={this.state.forecast} />
       </div>
     )
   }
