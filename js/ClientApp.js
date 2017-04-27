@@ -18,9 +18,7 @@ class ClientApp extends React.Component {
     this.setCoordinates = this.setCoordinates.bind(this)
     this.getData = this.getData.bind(this)
   }
-  getData (e) {
-    e.preventDefault()
-    this.codeAddress()
+  getData () {
     console.log('getData')
     console.log(this.state.coordinates)
     axios.get(`http://localhost:3000/forecast/${this.state.coordinates}`)
@@ -37,6 +35,7 @@ class ClientApp extends React.Component {
   }
   setCoordinates (newCoordinates) {
     this.setState({coordinates: newCoordinates})
+    this.getData()
   }
   render () {
     console.log(this.state)
