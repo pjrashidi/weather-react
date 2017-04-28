@@ -9,7 +9,12 @@ class RecentList extends React.Component {
   render () {
     let recentSearchList
     recentSearchList = this.props.recentSearches.map((searchItem) => {
-      return <RecentItem searchItem={searchItem} />
+      return (
+        <RecentItem
+          searchItem={searchItem}
+          setGeocode={this.props.setGeocode}
+        />
+      )
     })
     return (
       <div>
@@ -21,7 +26,8 @@ class RecentList extends React.Component {
 }
 
 RecentList.propTypes = {
-  recentSearches: PropTypes.array
+  recentSearches: PropTypes.array,
+  setGeocode: PropTypes.func
 }
 
 export default RecentList

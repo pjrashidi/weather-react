@@ -69,7 +69,10 @@ class ClientApp extends React.Component {
           setSearchTerm={this.setSearchTerm}
           setGeocode={this.setGeocode}
         />
-        <RecentList recentSearches={this.state.recentList} />
+        <RecentList
+          recentSearches={this.state.recentList}
+          setGeocode={this.setGeocode}
+        />
         <Forecast forecast={this.state.forecast} />
       </div>
     )
