@@ -11,7 +11,9 @@ import { updateRecentList } from './updateRecentList'
 const getRecentsInStorage = () => {
   const recentList = []
   for (let i = 0; i < 5; i += 1) {
-    recentList.push(window.localStorage.getItem(i))
+    if (window.localStorage.getItem(i)) {
+      recentList.push(window.localStorage.getItem(i))
+    }
   }
   return recentList
 }
