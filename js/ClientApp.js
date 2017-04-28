@@ -32,18 +32,22 @@ class ClientApp extends React.Component {
     this.setForecast = this.setForecast.bind(this)
     this.setRecentList = this.setRecentList.bind(this)
   }
+
   setSearchTerm (newSearchTerm) {
     this.setState({searchTerm: newSearchTerm})
   }
+
   setGeocode (newGeocode) {
     this.setState({geocode: newGeocode}, () => {
       getForecast(this.state.geocode, this.setForecast)
       updateRecentList(this.state.recentList, this.state.geocode, this.setRecentList)
     })
   }
+
   setForecast (newForecast) {
     this.setState({forecast: newForecast})
   }
+
   setRecentList (newRecentList) {
     this.setState({recentList: newRecentList}, () => {
       this.state.recentList.forEach((searchItem, index) => {
@@ -53,6 +57,7 @@ class ClientApp extends React.Component {
       })
     })
   }
+
   render () {
     console.log(this.state)
     return (

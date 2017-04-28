@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const server = express()
 const axios = require('axios')
-const PORT = 3000
+const PORT = process.env.PORT
 const darkSkyKey = process.env.DARK_SKY_KEY
 
 server.use(function(req, res, next) {
