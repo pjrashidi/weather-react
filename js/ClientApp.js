@@ -8,6 +8,14 @@ import Forecast from './Forecast'
 import { getForecast } from './getForecast'
 import { updateRecentList } from './updateRecentList'
 
+const getRecentsInStorage = () => {
+  const recentList = []
+  for (let i = 0; i < 5; i += 1) {
+    recentList.push(window.localStorage.getItem(i))
+  }
+  return recentList
+}
+
 class ClientApp extends React.Component {
   constructor (props) {
     super(props)
@@ -15,7 +23,7 @@ class ClientApp extends React.Component {
       searchTerm: '',
       geocode: '',
       forecast: {},
-      recentList: []
+      recentList: getRecentsInStorage()
     }
     this.setSearchTerm = this.setSearchTerm.bind(this)
     this.setGeocode = this.setGeocode.bind(this)
@@ -26,19 +34,22 @@ class ClientApp extends React.Component {
     this.setState({searchTerm: newSearchTerm})
   }
   setGeocode (newGeocode) {
-    this.setState(
-      {geocode: newGeocode},
-      () => {
-        getForecast(this.state.geocode, this.setForecast)
-        updateRecentList(this.state.recentList, this.state.geocode, this.setRecentList)
-      }
-    )
+    this.setState({geocode: newGeocode}, () => {
+      getForecast(this.state.geocode, this.setForecast)
+      updateRecentList(this.state.recentList, this.state.geocode, this.setRecentList)
+    })
   }
   setForecast (newForecast) {
     this.setState({forecast: newForecast})
   }
   setRecentList (newRecentList) {
-    this.setState({recentList: newRecentList})
+    this.setState({recentList: newRecentList}, () => {
+      this.state.recentList.forEach((searchItem, index) => {
+        const key = String(index)
+        const value = searchItem
+        window.localStorage.setItem(key, value)
+      })
+    })
   }
   render () {
     console.log(this.state)
