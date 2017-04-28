@@ -3,9 +3,6 @@ import RecentItem from './RecentItem.js'
 import PropTypes from 'prop-types'
 
 class RecentList extends React.Component {
-  // constructor (props) {
-  //   super(props)
-  // }
   render () {
     let recentSearchList
     recentSearchList = this.props.recentSearches.map((searchItem) => {
