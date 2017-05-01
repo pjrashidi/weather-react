@@ -15,9 +15,9 @@ class RecentItem extends React.Component {
   render () {
     return (
       <div>
-      <button onClick={this.handleClick}>
-        {this.props.searchItem}
-      </button>
+        <button onClick={this.handleClick}>
+          {this.props.searchItem}
+        </button>
       </div>
     )
   }
