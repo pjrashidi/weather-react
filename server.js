@@ -16,19 +16,22 @@ server.use(function(req, res, next) {
 
 server.get('/forecast/:coord', (req, res) => {
   redisClient.get(req.params.coord, function(err, reply) {
-    if(reply) {
+    console.log(req.params.coord)
+    if (reply) {
       console.log(`Forecast for ${req.params.coord} already stored in Redis`)
+      return (JSON.parse(reply))
+    } else {
+      axios.get(`https://api.darksky.net/forecast/${darkSkyKey}/${req.params.coord}`)
+      .then((response) => {
+        console.log('RETRIEVING DATA FROM DARK SKY')
+        redisClient.set(`${req.params.coord}`, JSON.stringify(response.data), 'EX', 900)
+        res.send(JSON.stringify(response.data, null, 4))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   })
-  axios.get(`https://api.darksky.net/forecast/${darkSkyKey}/${req.params.coord}`)
-    .then((response) => {
-      console.log('RETRIEVED DATA FROM DARK SKY')
-      redisClient.set(`${req.params.coord}`, JSON.stringify(response.data), 'EX', 900)
-      res.send(JSON.stringify(response.data, null, 4))
-    })
-    .catch((error) => {
-      console.log(error)
-    })
 })
 
 server.get('/', (req, res) => {
