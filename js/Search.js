@@ -9,7 +9,7 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange (event) {
-    this.props.setSearchTerm(event.target.value)
+    this.props.setStateItem(event.target.id, event.target.value)
   }
   handleSubmit (event) {
     event.preventDefault()
@@ -20,7 +20,7 @@ class Search extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
-            id='searchInput'
+            id='searchTerm'
             value={this.props.searchTerm}
             onChange={this.handleChange}
           />
@@ -32,7 +32,7 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-  setSearchTerm: PropTypes.func,
+  setStateItem: PropTypes.func,
   setGeocode: PropTypes.func,
   searchTerm: PropTypes.string
 }
