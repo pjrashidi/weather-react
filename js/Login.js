@@ -9,7 +9,7 @@ class Login extends React.Component {
     this.handleRegister = this.handleLogin.bind(this)
   }
   handleChange (event) {
-    this.props.setStateItem(event.target.id, event.target.value)
+    this.props.setStateString(event.target.id, event.target.value)
   }
   handleLogin (event) {
     event.preventDefault()
@@ -44,7 +44,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  setStateItem: PropTypes.func,
+  setStateString: PropTypes.func,
   username: PropTypes.string,
   password: PropTypes.string
 }
