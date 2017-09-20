@@ -33,29 +33,24 @@ class ClientApp extends React.Component {
       forecast: {},
       recentList: getRecentsInStorage()
     }
-    this.setStateString = this.setStateString.bind(this)
+    this.setStateHandler = this.setStateHandler.bind(this)
     this.setGeocode = this.setGeocode.bind(this)
-    this.setForecast = this.setForecast.bind(this)
     this.setRecentList = this.setRecentList.bind(this)
   }
 
-  setStateString (stateKey, stateValue) {
-    this.setState({ [stateKey]: stateValue })
+  setStateHandler (stateObject) {
+    this.setState(stateObject)
   }
 
   setGeocode (newGeocode) {
     this.setState({ geocode: newGeocode }, () => {
-      getForecast(this.state.geocode, this.setForecast)
+      getForecast(this.state.geocode, this.setStateHandler)
       updateRecentList(
         this.state.recentList,
         this.state.geocode,
         this.setRecentList
       )
     })
-  }
-
-  setForecast (newForecast) {
-    this.setState({ forecast: newForecast })
   }
 
   setRecentList (newRecentList) {
@@ -77,11 +72,11 @@ class ClientApp extends React.Component {
         <Login
           username={this.state.username}
           password={this.state.password}
-          setStateString={this.setStateString}
+          setStateHandler={this.setStateHandler}
         />
         <Search
           searchTerm={this.state.searchTerm}
-          setStateString={this.setStateString}
+          setStateHandler={this.setStateHandler}
           setGeocode={this.setGeocode}
         />
         <RecentList
