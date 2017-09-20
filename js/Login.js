@@ -18,8 +18,12 @@ class Login extends React.Component {
   }
   handleRegister (event) {
     event.preventDefault()
+    let newUserData = {
+      username: this.props.username,
+      password: this.props.password
+    }
     axios
-      .get(`http://localhost:3000/mongodb/darcy`)
+      .get(`http://localhost:3000/mongodb/${JSON.stringify(newUserData)}`)
       .then(response => {
         console.log('success', response.data)
       })

@@ -25,9 +25,9 @@ MongoClient.connect(mongoDBurl, function (err, db) {
   assert.equal(null, err)
   console.log('Connected successfully to mongoDB server')
   let users = db.collection('users'),
-    insertUser = function (db, userName, callback) {
-      users.insertOne({ user: `${userName}` }, function (err, result) {
-        console.log(`Added ${userName}`)
+    insertUser = function (db, newUserData, callback) {
+      users.insertOne(JSON.parse(newUserData), function (err, result) {
+        console.log(`Added ${newUserData}`)
         callback(result)
       })
     }
@@ -38,8 +38,8 @@ MongoClient.connect(mongoDBurl, function (err, db) {
       callback(docs)
     })
   }
-  server.get('/mongodb/:userName', (req, res) => {
-    insertUser(db, req.params.userName, function () {
+  server.get('/mongodb/:newUserData', (req, res) => {
+    insertUser(db, req.params.newUserData, function () {
       findUsers(db, function () {})
     })
   })
