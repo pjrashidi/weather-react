@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
+import { registerNewUser } from './registerNewUser.js'
 
 class Login extends React.Component {
   constructor (props) {
@@ -10,7 +10,7 @@ class Login extends React.Component {
     this.handleRegister = this.handleRegister.bind(this)
   }
   handleChange (event) {
-    this.props.setStateHandler({[event.target.id]: event.target.value})
+    this.props.setStateHandler({ [event.target.id]: event.target.value })
   }
   handleLogin (event) {
     event.preventDefault()
@@ -18,18 +18,7 @@ class Login extends React.Component {
   }
   handleRegister (event) {
     event.preventDefault()
-    let newUserData = {
-      username: this.props.username,
-      password: this.props.password
-    }
-    axios
-      .get(`http://localhost:3000/mongodb/${JSON.stringify(newUserData)}`)
-      .then(response => {
-        console.log('success', response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    registerNewUser(this.props.username, this.props.password)
   }
   render () {
     return (

@@ -6,7 +6,7 @@ export function getForecast (geocode, callback) {
     .get(`http://localhost:3000/forecast/${coordinates}`)
     .then(response => {
       console.log('success', response.data)
-      let newForecast = {forecast: response.data}
+      let newForecast = { forecast: response.data }
       callback(newForecast)
     })
     .catch(error => {

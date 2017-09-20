@@ -9,7 +9,7 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange (event) {
-    this.props.setStateHandler({[event.target.id]: event.target.value})
+    this.props.setStateHandler({ [event.target.id]: event.target.value })
   }
   handleSubmit (event) {
     event.preventDefault()
