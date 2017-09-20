@@ -17,14 +17,34 @@ server.use(function(req, res, next) {
 });
 
 // Connection URL
-var mongoDBurl = 'mongodb://localhost:27017/myproject';
+var mongoDBurl = 'mongodb://localhost:27017/weatherReact';
 
 // Use connect method to connect to the server
 MongoClient.connect(mongoDBurl, function(err, db) {
   assert.equal(null, err);
   console.log("Connected successfully to mongoDB server");
+  var users = db.collection('users')
+  
+  var insertUsers = function(db, callback) {
+    users.insertOne({"user":"bob"}, function(err, result) {
+      console.log("Added bob");
+      callback(result);
+    });
+  }
 
-  db.close();
+  var findUsers = function(db, callback) {
+    users.find({}).toArray(function(err, docs) {
+      console.log("Found the following records");
+      console.log(docs)
+      callback(docs);
+    });
+  }
+
+  insertUsers(db, function() {
+    findUsers(db, function() {
+      db.close();
+    });
+  });
 });
 
 server.get('/forecast/:coord', (req, res) => {
