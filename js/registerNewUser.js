@@ -6,7 +6,9 @@ export function registerNewUser (username, password) {
     password: password
   }
   axios
-    .get(`http://localhost:3000/mongodb/${JSON.stringify(newUserData)}`)
+    .get(
+      `http://localhost:3000/mongodb/registerNew/${JSON.stringify(newUserData)}`
+    )
     .then(response => {
       console.log('success', response.data)
     })

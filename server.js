@@ -26,9 +26,8 @@ MongoClient.connect(mongoDBurl, function (err, db) {
   console.log('Connected successfully to mongoDB server')
   let users = db.collection('users'),
     insertUser = function (db, newUserData, callback) {
-      users.insertOne(JSON.parse(newUserData), function (err, result) {
-        console.log(`Added ${newUserData}`)
-        callback(result)
+      users.insertOne(newUserData, function (err, result) {
+        console.log(`Added new user ${JSON.stringify(newUserData)}`)
       })
     }
   findUsers = function (db, callback) {
@@ -38,9 +37,21 @@ MongoClient.connect(mongoDBurl, function (err, db) {
       callback(docs)
     })
   }
-  server.get('/mongodb/:newUserData', (req, res) => {
-    insertUser(db, req.params.newUserData, function () {
-      findUsers(db, function () {})
+  preventDupeUser = function (db, newUserData, callback) {
+    users.find({ username: newUserData.username }).toArray(function (err, doc) {
+      if (doc.length >= 1) {
+        console.log('that username is taken')
+      } else if (doc.length === 0) {
+        console.log('that username is free')
+        callback(db, newUserData)
+      }
+    })
+  }
+  server.get('/mongodb/registerNew/:newUserData', (req, res) => {
+    let newUserData = JSON.parse(req.params.newUserData)
+    // first check if that username already exists
+    preventDupeUser(db, newUserData, function () {
+      insertUser(db, newUserData)
     })
   })
 })
