@@ -1,23 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 
 class Login extends React.Component {
   constructor (props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
-    this.handleRegister = this.handleLogin.bind(this)
+    this.handleRegister = this.handleRegister.bind(this)
   }
   handleChange (event) {
     this.props.setStateString(event.target.id, event.target.value)
   }
   handleLogin (event) {
     event.preventDefault()
-    console.log('test')
+    console.log('login test')
   }
   handleRegister (event) {
     event.preventDefault()
-    console.log('test')
+    axios
+      .get(`http://localhost:3000/mongodb/darcy`)
+      .then(response => {
+        console.log('success', response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
   render () {
     return (
@@ -35,8 +43,8 @@ class Login extends React.Component {
             value={this.props.password}
             onChange={this.handleChange}
           />
-          <input type='submit' value='Login' onClick={this.handleLogin} />
-          <input type='submit' value='Register' onClick={this.handleRegister} />
+          <input type='button' value='Login' onClick={this.handleLogin} />
+          <input type='button' value='Register' onClick={this.handleRegister} />
         </form>
       </div>
     )
