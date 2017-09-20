@@ -1,23 +1,23 @@
-import React from 'react'
+import React from 'react';
 
 class Test extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { stateTest: true }
-    this.flipStateTest = this.flipStateTest.bind(this)
+  constructor(props) {
+    super(props);
+    this.state = { stateTest: true };
+    this.flipStateTest = this.flipStateTest.bind(this);
   }
-  flipStateTest (e) {
-    e.preventDefault()
-    this.setState({stateTest: false})
+  flipStateTest(e) {
+    e.preventDefault();
+    this.setState({ stateTest: false });
   }
-  render () {
-    console.log(this.state)
+  render() {
+    console.log(this.state);
     return (
       <form onSubmit={this.flipStateTest}>
-        <input type='submit' value='TEST' />
+        <input type="submit" value="TEST" />
       </form>
-    )
+    );
   }
 }
 
-export default Test
+export default Test;

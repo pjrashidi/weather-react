@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 
 class Login extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleLogin = this.handleLogin.bind(this)
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
   }
-  handleLogin (event) {
-    event.preventDefault()
-    console.log('test')
+  handleLogin(event) {
+    event.preventDefault();
+    console.log('test');
   }
-  render () {
+  render() {
     return (
       <div>
         <form onSubmit={this.handleLogin}>
           <label>User</label>
-          <input id='user' />
+          <input id="user" />
           <label>Password</label>
-          <input id='password' />
-          <input type='submit' />
+          <input id="password" />
+          <input type="submit" />
         </form>
       </div>
-    )
+    );
   }
 }
 
-export default Login
+export default Login;

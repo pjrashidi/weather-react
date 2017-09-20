@@ -1,11 +1,10 @@
-require('dotenv').config()
-const path = require('path')
+require('dotenv').config();
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const googleMapsAPIKey = process.env.GOOGLE_MAPS_KEY
-
+const googleMapsAPIKey = process.env.GOOGLE_MAPS_KEY;
 
 module.exports = {
-  entry:'./js/ClientApp.js',
+  entry: './js/ClientApp.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
@@ -17,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         include: path.resolve(__dirname, 'js'),
         exclude: path.resolve('googleMaps.js'),
@@ -37,4 +36,4 @@ module.exports = {
       template: 'my-index.ejs'
     })
   ]
-}
+};

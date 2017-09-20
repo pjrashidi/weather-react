@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Title = () => {
-  return <h1>Weather React 🌦</h1>
-}
+  return <h1>Weather React 🌦</h1>;
+};
 
-export default Title
+export default Title;
