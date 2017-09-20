@@ -1,7 +1,7 @@
-require('dotenv').config();
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const googleMapsAPIKey = process.env.GOOGLE_MAPS_KEY;
+require('dotenv').config()
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const googleMapsAPIKey = process.env.GOOGLE_MAPS_KEY
 
 module.exports = {
   entry: './js/ClientApp.js',
@@ -36,4 +36,4 @@ module.exports = {
       template: 'my-index.ejs'
     })
   ]
-};
+}
