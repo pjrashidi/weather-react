@@ -15,6 +15,7 @@ export function loginUser (username, password, callback) {
       }
       if (!response.data.username) alertMessage += 'please input username\n'
       if (!response.data.password) alertMessage += 'please input password\n'
+      if (response.data.password && response.data.userExists && !response.data.passwordCorrect) alertMessage += 'username and password do not match\n'
       if (response.data.userExists && response.data.passwordCorrect) {
         alertMessage += 'logged in as ' + response.data.username
         callback()

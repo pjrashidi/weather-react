@@ -42,14 +42,14 @@ MongoClient.connect(mongoDBurl, function (err, db) {
     // make sure username isn't a duplicate
     users.find({ username: newUserData.username }).toArray(function (err, doc) {
       console.log(doc)
-      if (doc.length === 0 && newUserData.username && newUserData.password) {
+      if (doc.length === 0 && newUserData.username) {
         returnObject.userAvailable = true
       }
       callback(db, newUserData, returnObject)
     })
   }
   insertUser = function (db, newUserData, returnObject, callback) {
-    if (returnObject.userAvailable) {
+    if (returnObject.userAvailable && returnObject.password) {
       users.insertOne(newUserData)
       console.log(`Added new user ${JSON.stringify(newUserData)}`)
     }
