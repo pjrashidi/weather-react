@@ -53,6 +53,7 @@ class Login extends React.Component {
             <label>Password</label>
             <input
               id='password'
+              type='password'
               value={this.props.password}
               onChange={this.handleChange}
               />

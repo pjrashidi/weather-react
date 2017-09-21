@@ -11,14 +11,15 @@ export function registerNewUser (username, password, callback) {
     )
     .then(response => {
       console.log(response.data)
+      let {username, password, userAvailable} = response.data
       let alertMessage = ''
-      if (response.data.username && !response.data.userAvailable) {
+      if (username && !userAvailable) {
         alertMessage += 'username already taken\n'
       }
-      if (!response.data.username) alertMessage += 'please input username\n'
-      if (!response.data.password) alertMessage += 'please input password\n'
-      if (response.data.username && response.data.password && response.data.userAvailable) {
-        alertMessage += `new user ${response.data.username} registered\n`
+      if (!username) alertMessage += 'please input username\n'
+      if (!password) alertMessage += 'please input password\n'
+      if (username && password && userAvailable) {
+        alertMessage += `new user ${username} registered\n`
         callback()
       }
       window.alert(alertMessage)

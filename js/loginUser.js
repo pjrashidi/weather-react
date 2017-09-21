@@ -9,15 +9,16 @@ export function loginUser (username, password, callback) {
     .get(`http://localhost:3000/mongodb/login/${JSON.stringify(loginUserData)}`)
     .then(response => {
       console.log(response.data)
+      let{username, password, userExists, passwordCorrect} = response.data
       let alertMessage = ''
-      if (response.data.username && !response.data.userExists) {
+      if (username && !userExists) {
         alertMessage += 'that user does not exist, please register\n'
       }
-      if (!response.data.username) alertMessage += 'please input username\n'
-      if (!response.data.password) alertMessage += 'please input password\n'
-      if (response.data.password && response.data.userExists && !response.data.passwordCorrect) alertMessage += 'username and password do not match\n'
-      if (response.data.userExists && response.data.passwordCorrect) {
-        alertMessage += 'logged in as ' + response.data.username
+      if (!username) alertMessage += 'please input username\n'
+      if (!password) alertMessage += 'please input password\n'
+      if (password && userExists && !passwordCorrect) alertMessage += 'wrong password\n'
+      if (userExists && passwordCorrect) {
+        alertMessage += 'logged in as ' + username
         callback()
       }
       window.alert(alertMessage)
