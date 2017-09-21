@@ -22,36 +22,41 @@ server.use(function (req, res, next) {
 
 // Use connect method to connect to the server
 MongoClient.connect(mongoDBurl, function (err, db) {
-  assert.equal(null, err)
   console.log('Connected successfully to mongoDB server')
   let users = db.collection('users'),
-    insertUser = function (db, newUserData, callback) {
-      users.insertOne(newUserData, function (err, result) {
-        console.log(`Added new user ${JSON.stringify(newUserData)}`)
-      })
+    validateUserInput = function (db, newUserData, returnObject, callback) {
+      // make sure username isn't a duplicate
+      users
+        .find({ username: newUserData.username })
+        .toArray(function (err, doc) {
+          console.log(doc)
+          if (
+            doc.length === 0 && newUserData.username && newUserData.password
+          ) {
+            returnObject.userAvailable = true
+          }
+          callback(db, newUserData, returnObject)
+        })
     }
-  findUsers = function (db, callback) {
-    users.find({}).toArray(function (err, docs) {
-      console.log('Found the following records')
-      console.log(docs)
-      callback(docs)
-    })
-  }
-  preventDupeUser = function (db, newUserData, callback) {
-    users.find({ username: newUserData.username }).toArray(function (err, doc) {
-      if (doc.length >= 1) {
-        console.log('that username is taken')
-      } else if (doc.length === 0) {
-        console.log('that username is free')
-        callback(db, newUserData)
-      }
-    })
+  insertUser = function (db, newUserData, returnObject, callback) {
+    if (returnObject.userAvailable) {
+      users.insertOne(newUserData)
+      console.log(`Added new user ${JSON.stringify(newUserData)}`)
+    }
+    callback(returnObject)
   }
   server.get('/mongodb/registerNew/:newUserData', (req, res) => {
-    let newUserData = JSON.parse(req.params.newUserData)
-    // first check if that username already exists
-    preventDupeUser(db, newUserData, function () {
-      insertUser(db, newUserData)
+    let newUserData = JSON.parse(req.params.newUserData),
+      returnObject = {
+        username: newUserData.username || false,
+        password: newUserData.password || false,
+        userAvailable: false
+      }
+    // first check if that username already exists, if it doesn't -> callback adds a new user with it
+    validateUserInput(db, newUserData, returnObject, function () {
+      insertUser(db, newUserData, returnObject, function () {
+        res.send(returnObject)
+      })
     })
   })
 })
