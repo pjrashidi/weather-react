@@ -28,6 +28,7 @@ class ClientApp extends React.Component {
     this.state = {
       username: '',
       password: '',
+      loggedIn: '',
       searchTerm: '',
       geocode: '',
       forecast: {},
@@ -72,6 +73,7 @@ class ClientApp extends React.Component {
         <LoginForm
           username={this.state.username}
           password={this.state.password}
+          loggedIn={this.state.loggedIn}
           setStateHandler={this.setStateHandler}
         />
         <Search
