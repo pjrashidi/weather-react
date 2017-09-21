@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export function registerNewUser (username, password) {
+export function registerNewUser (username, password, callback) {
   let newUserData = {
     username: username,
     password: password
@@ -20,6 +20,7 @@ export function registerNewUser (username, password) {
         alertMessage += 'new user registered\n'
       }
       window.alert(alertMessage)
+      callback()
     })
     .catch(error => {
       console.log(error)

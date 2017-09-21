@@ -7,6 +7,7 @@ class Login extends React.Component {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
+    this.clearFields = this.clearFields.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
   }
   handleChange (event) {
@@ -16,9 +17,12 @@ class Login extends React.Component {
     event.preventDefault()
     console.log('login test')
   }
+  clearFields () {
+    this.props.setStateHandler({username: '', password: ''})
+  }
   handleRegister (event) {
     event.preventDefault()
-    registerNewUser(this.props.username, this.props.password)
+    registerNewUser(this.props.username, this.props.password, this.clearFields)
   }
   render () {
     return (
