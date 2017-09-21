@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // import Test from './Test'
 import Title from './Title'
-import Login from './Login'
+import LoginForm from './LoginForm'
 import Search from './Search'
 import RecentList from './RecentList'
 import Forecast from './Forecast'
@@ -69,7 +69,7 @@ class ClientApp extends React.Component {
       <div>
         {/* <Test /> */}
         <Title />
-        <Login
+        <LoginForm
           username={this.state.username}
           password={this.state.password}
           setStateHandler={this.setStateHandler}

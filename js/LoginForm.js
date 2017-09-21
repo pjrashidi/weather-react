@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { loginUser } from './loginUser.js'
 import { registerNewUser } from './registerNewUser.js'
 
 class Login extends React.Component {
@@ -15,14 +16,14 @@ class Login extends React.Component {
   }
   handleLogin (event) {
     event.preventDefault()
-    console.log('login test')
-  }
-  clearFields () {
-    this.props.setStateHandler({username: '', password: ''})
+    loginUser(this.props.username, this.props.password, this.clearFields)
   }
   handleRegister (event) {
     event.preventDefault()
     registerNewUser(this.props.username, this.props.password, this.clearFields)
+  }
+  clearFields () {
+    this.props.setStateHandler({ username: '', password: '' })
   }
   render () {
     return (

@@ -24,20 +24,30 @@ server.use(function (req, res, next) {
 MongoClient.connect(mongoDBurl, function (err, db) {
   console.log('Connected successfully to mongoDB server')
   let users = db.collection('users'),
-    validateUserInput = function (db, newUserData, returnObject, callback) {
-      // make sure username isn't a duplicate
+    validateLogin = function (db, loginUserData, returnObject, callback) {
       users
-        .find({ username: newUserData.username })
+        .find({ username: loginUserData.username })
         .toArray(function (err, doc) {
-          console.log(doc)
-          if (
-            doc.length === 0 && newUserData.username && newUserData.password
-          ) {
-            returnObject.userAvailable = true
+          if (doc.length === 1) {
+            returnObject.userExists = true
+            if (loginUserData.password === doc[0].password) {
+              returnObject.passwordCorrect = true
+            }
           }
-          callback(db, newUserData, returnObject)
+          console.log(doc)
+          callback(returnObject)
         })
     }
+  validateRegister = function (db, newUserData, returnObject, callback) {
+    // make sure username isn't a duplicate
+    users.find({ username: newUserData.username }).toArray(function (err, doc) {
+      console.log(doc)
+      if (doc.length === 0 && newUserData.username && newUserData.password) {
+        returnObject.userAvailable = true
+      }
+      callback(db, newUserData, returnObject)
+    })
+  }
   insertUser = function (db, newUserData, returnObject, callback) {
     if (returnObject.userAvailable) {
       users.insertOne(newUserData)
@@ -45,6 +55,18 @@ MongoClient.connect(mongoDBurl, function (err, db) {
     }
     callback(returnObject)
   }
+  server.get('/mongodb/login/:loginUserData', (req, res) => {
+    let loginUserData = JSON.parse(req.params.loginUserData),
+      returnObject = {
+        username: loginUserData.username || false,
+        password: loginUserData.password || false,
+        userExists: false,
+        passwordCorrect: false
+      }
+    validateLogin(db, loginUserData, returnObject, function () {
+      res.send(returnObject)
+    })
+  })
   server.get('/mongodb/registerNew/:newUserData', (req, res) => {
     let newUserData = JSON.parse(req.params.newUserData),
       returnObject = {
@@ -53,7 +75,7 @@ MongoClient.connect(mongoDBurl, function (err, db) {
         userAvailable: false
       }
     // first check if that username already exists, if it doesn't -> callback adds a new user with it
-    validateUserInput(db, newUserData, returnObject, function () {
+    validateRegister(db, newUserData, returnObject, function () {
       insertUser(db, newUserData, returnObject, function () {
         res.send(returnObject)
       })
