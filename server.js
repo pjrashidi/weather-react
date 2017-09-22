@@ -32,31 +32,43 @@ MongoClient.connect(mongoDBurl, function (err, db) {
         .toArray(function (err, doc) {
           if (doc.length === 1) {
             returnObject.userExists = true
-            if (loginCredentials.password === doc[0].password) {
-              returnObject.passwordCorrect = true
-            }
+            bcrypt.compare(loginCredentials.password, doc[0].password, function (
+              err,
+              res
+            ) {
+              console.log(res)
+              if (res === true) returnObject.passwordCorrect = true
+              console.log(doc)
+              callback(returnObject)
+            })
+          } else {
+            console.log(doc)
+            callback(returnObject)
           }
-          console.log(doc)
-          callback(returnObject)
         })
     }
   validateRegister = function (db, registerCredentials, returnObject, callback) {
     // make sure username isn't a duplicate
-    users.find({ username: registerCredentials.username }).toArray(function (err, doc) {
-      console.log(doc)
-      if (doc.length === 0 && registerCredentials.username) {
-        returnObject.userAvailable = true
-      }
-      callback(db, registerCredentials, returnObject)
-    })
+    users
+      .find({ username: registerCredentials.username })
+      .toArray(function (err, doc) {
+        console.log(doc)
+        if (doc.length === 0 && registerCredentials.username) {
+          returnObject.userAvailable = true
+        }
+        callback(db, registerCredentials, returnObject)
+      })
   }
   insertUser = function (db, registerCredentials, returnObject, callback) {
     if (returnObject.userAvailable && returnObject.password) {
-      bcrypt.hash(registerCredentials.password, saltRounds, function(err, hash) {
+      bcrypt.hash(registerCredentials.password, saltRounds, function (
+        err,
+        hash
+      ) {
         registerCredentials.password = hash
         users.insertOne(registerCredentials)
         console.log(`Added new user ${JSON.stringify(registerCredentials)}`)
-      });
+      })
     }
     callback(returnObject)
   }
