@@ -40,7 +40,7 @@ class Login extends React.Component {
       <div>
         {this.props.loggedIn !== ''
           ? <div>
-              <div>Logged in as {this.props.loggedIn}</div>
+            <div>Logged in as {this.props.loggedIn}</div>
             <input type='button' value='Log out' onClick={this.logout} />
           </div>
           : <form>

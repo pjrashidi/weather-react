@@ -8,6 +8,8 @@ const express = require('express'),
   MongoClient = require('mongodb').MongoClient,
   mongoDBurl = 'mongodb://localhost:27017/weatherReact',
   assert = require('assert'),
+  bcrypt = require('bcrypt'),
+  saltRounds = 10,
   PORT = process.env.PORT,
   darkSkyKey = process.env.DARK_SKY_KEY
 
@@ -24,13 +26,13 @@ server.use(function (req, res, next) {
 MongoClient.connect(mongoDBurl, function (err, db) {
   console.log('Connected successfully to mongoDB server')
   let users = db.collection('users'),
-    validateLogin = function (db, loginUserData, returnObject, callback) {
+    validateLogin = function (db, loginCredentials, returnObject, callback) {
       users
-        .find({ username: loginUserData.username })
+        .find({ username: loginCredentials.username })
         .toArray(function (err, doc) {
           if (doc.length === 1) {
             returnObject.userExists = true
-            if (loginUserData.password === doc[0].password) {
+            if (loginCredentials.password === doc[0].password) {
               returnObject.passwordCorrect = true
             }
           }
@@ -38,45 +40,48 @@ MongoClient.connect(mongoDBurl, function (err, db) {
           callback(returnObject)
         })
     }
-  validateRegister = function (db, newUserData, returnObject, callback) {
+  validateRegister = function (db, registerCredentials, returnObject, callback) {
     // make sure username isn't a duplicate
-    users.find({ username: newUserData.username }).toArray(function (err, doc) {
+    users.find({ username: registerCredentials.username }).toArray(function (err, doc) {
       console.log(doc)
-      if (doc.length === 0 && newUserData.username) {
+      if (doc.length === 0 && registerCredentials.username) {
         returnObject.userAvailable = true
       }
-      callback(db, newUserData, returnObject)
+      callback(db, registerCredentials, returnObject)
     })
   }
-  insertUser = function (db, newUserData, returnObject, callback) {
+  insertUser = function (db, registerCredentials, returnObject, callback) {
     if (returnObject.userAvailable && returnObject.password) {
-      users.insertOne(newUserData)
-      console.log(`Added new user ${JSON.stringify(newUserData)}`)
+      bcrypt.hash(registerCredentials.password, saltRounds, function(err, hash) {
+        registerCredentials.password = hash
+        users.insertOne(registerCredentials)
+        console.log(`Added new user ${JSON.stringify(registerCredentials)}`)
+      });
     }
     callback(returnObject)
   }
-  server.get('/mongodb/login/:loginUserData', (req, res) => {
-    let loginUserData = JSON.parse(req.params.loginUserData),
+  server.get('/mongodb/login/:loginCredentials', (req, res) => {
+    let loginCredentials = JSON.parse(req.params.loginCredentials),
       returnObject = {
-        username: loginUserData.username || false,
-        password: loginUserData.password || false,
+        username: loginCredentials.username || false,
+        password: loginCredentials.password || false,
         userExists: false,
         passwordCorrect: false
       }
-    validateLogin(db, loginUserData, returnObject, function () {
+    validateLogin(db, loginCredentials, returnObject, function () {
       res.send(returnObject)
     })
   })
-  server.get('/mongodb/registerNew/:newUserData', (req, res) => {
-    let newUserData = JSON.parse(req.params.newUserData),
+  server.get('/mongodb/registerNew/:registerCredentials', (req, res) => {
+    let registerCredentials = JSON.parse(req.params.registerCredentials),
       returnObject = {
-        username: newUserData.username || false,
-        password: newUserData.password || false,
+        username: registerCredentials.username || false,
+        password: registerCredentials.password || false,
         userAvailable: false
       }
     // first check if that username already exists, if it doesn't -> callback adds a new user with it
-    validateRegister(db, newUserData, returnObject, function () {
-      insertUser(db, newUserData, returnObject, function () {
+    validateRegister(db, registerCredentials, returnObject, function () {
+      insertUser(db, registerCredentials, returnObject, function () {
         res.send(returnObject)
       })
     })

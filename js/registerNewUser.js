@@ -1,17 +1,17 @@
 import axios from 'axios'
 
 export function registerNewUser (username, password, callback) {
-  let newUserData = {
+  let registerCredentials = {
     username: username,
     password: password
   }
   axios
     .get(
-      `http://localhost:3000/mongodb/registerNew/${JSON.stringify(newUserData)}`
+      `http://localhost:3000/mongodb/registerNew/${JSON.stringify(registerCredentials)}`
     )
     .then(response => {
       console.log(response.data)
-      let {username, password, userAvailable} = response.data
+      let { username, password, userAvailable } = response.data
       let alertMessage = ''
       if (username && !userAvailable) {
         alertMessage += 'username already taken\n'
