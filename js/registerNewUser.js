@@ -1,13 +1,14 @@
 import axios from 'axios'
 
 export function registerNewUser (username, password, callback) {
-  let registerCredentials = {
-    username: username,
-    password: password
-  }
+  // let registerCredentials = {
+  //   username: username,
+  //   password: password
+  // }
   axios
-    .get(
-      `http://localhost:3000/mongodb/registerNew/${JSON.stringify(registerCredentials)}`
+    .post(
+      'http://localhost:3000/mongodb/registerNew',
+      { username: username, password: password }
     )
     .then(response => {
       console.log(response.data)

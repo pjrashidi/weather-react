@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express'),
   server = express(),
+  bodyParser = require('body-parser'),
   axios = require('axios'),
   redis = require('redis'),
   redisClient = redis.createClient(),
@@ -21,6 +22,7 @@ server.use(function (req, res, next) {
   )
   next()
 })
+server.use(bodyParser.json())
 
 // Use connect method to connect to the server
 MongoClient.connect(mongoDBurl, function (err, db) {
@@ -84,8 +86,9 @@ MongoClient.connect(mongoDBurl, function (err, db) {
       res.send(returnObject)
     })
   })
-  server.get('/mongodb/registerNew/:registerCredentials', (req, res) => {
-    let registerCredentials = JSON.parse(req.params.registerCredentials),
+  server.post('/mongodb/registerNew', (req, res) => {
+    console.log(req.body)
+    let registerCredentials = req.body,
       returnObject = {
         username: registerCredentials.username || false,
         password: registerCredentials.password || false,
