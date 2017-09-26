@@ -1,12 +1,11 @@
 import axios from 'axios'
 
 export function loginUser (username, password, callback) {
-  let loginCredentials = {
-    username: username,
-    password: password
-  }
   axios
-    .get(`http://localhost:3000/mongodb/login/${JSON.stringify(loginCredentials)}`)
+    .post('http://localhost:3000/mongodb/login', {
+      username: username,
+      password: password
+    })
     .then(response => {
       console.log(response.data)
       let { username, password, userExists, passwordCorrect } = response.data

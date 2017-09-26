@@ -6,10 +6,10 @@ export function registerNewUser (username, password, callback) {
   //   password: password
   // }
   axios
-    .post(
-      'http://localhost:3000/mongodb/registerNew',
-      { username: username, password: password }
-    )
+    .post('http://localhost:3000/mongodb/registerNew', {
+      username: username,
+      password: password
+    })
     .then(response => {
       console.log(response.data)
       let { username, password, userAvailable } = response.data
